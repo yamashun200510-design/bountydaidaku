@@ -48,3 +48,30 @@ const tagGroups = {
   }
 
 };
+const tags = {
+  "東の海": "skill1_cooldown",
+  "グランドライン突入": "skill1_cooldown",
+  "アラバスタ": "skill1_cooldown",
+  "空島・LRLL": "skill1_cooldown",
+  "W7・エニエスロビー": "skill1_cooldown",
+  "スリラーバーク": "skill1_cooldown",
+  "シャボンディ諸島・女ヶ島": "skill1_cooldown",
+  "インペルダウン": "skill1_cooldown",
+  "マリンフォード頂上戦争": "skill1_cooldown",
+  "2年後": "skill1_cooldown",
+  "魚人島": "skill1_cooldown",
+  "パンクハザード": "skill1_cooldown",
+  "ドレスローザ": "skill1_cooldown",
+  "世界会議": "skill1_cooldown",
+  "ゾウ・ホールケーキアイランド": "skill1_cooldown",
+  "ワノ国": "skill1_cooldown",
+  "エッグヘッド": "skill1_cooldown",
+  "FILM STRONG WORLD": "skill1_cooldown",
+  "FILM GOLD": "skill1_cooldown",
+  "FILM Z": "skill1_cooldown",
+  "STAMPEDE": "skill1_cooldown",
+  "FILM RED": "skill1_cooldown",
+  "ODYSSEY": "skill1_cooldown",
+  "水着": "skill1_cooldown",
+  "聖夜": "skill1_cooldown"
+};
