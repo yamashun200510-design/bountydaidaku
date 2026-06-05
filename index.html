@@ -147,14 +147,45 @@
       opacity: 0.78;
     }
 
-    .hero-inner {
-      position: relative;
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
-      gap: 36px;
-      align-items: center;
+/* ヒーローをPCでは2カラム、スマホでは縦並びにする */
+.hero-inner {
+  position: relative;
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 36px;
+  align-items: center;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.special-lecture-card {
+  min-width: 0;
+  width: 100%;
+  align-self: center;
+}
+
+/* タブレット・スマホでは縦並び */
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .special-lecture-card {
+    order: -1;
+  }
+}
+
+/* 小さいスマホで余白を調整 */
+@media (max-width: 560px) {
+  .hero-inner {
+    width: min(100% - 24px, 1120px);
+  }
+}
     }
 
     .eyebrow {
@@ -736,7 +767,7 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <div>
+    　<div class="hero-copy">
         <p class="eyebrow">校訓 知らないを、強さに変える。</p>
         <h1>バウンティ大学<br>【レクサカ】</h1>
         <p class="catch">すべてのバウンティプレイヤーに学びを。</p>
