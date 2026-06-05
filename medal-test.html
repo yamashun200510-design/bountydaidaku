@@ -38,27 +38,24 @@ function searchMedal() {
     "メダルが見つかりません";
   return;
 }
-
 document.getElementById("result").innerHTML =
   results.map(medal => `
     <h2>${medal.name}</h2>
 
     <h3>タグ</h3>
+
     <ul>
       ${medal.tags.map(tag => `<li>${tag}</li>`).join("")}
     </ul>
 
     <h3>固有特性</h3>
+
     <p>${medal.effect}</p>
 
+  
     <hr>
   `).join("");
-    </ul>
-
-    <h3>固有特性</h3>
-
-    <p>${medal.effect}</p>
-  `;
+   
 }
 
 </script>
