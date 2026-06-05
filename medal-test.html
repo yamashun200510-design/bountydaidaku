@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>メダル検索テスト</title>
+</head>
+<body>
+
+<h1>メダル検索テスト</h1>
+
+<input id="medalInput" placeholder="悪魔咲きメダル">
+
+<button onclick="searchMedal()">
+検索
+</button>
+
+<div id="result"></div>
+
+<script src="medals.js"></script>
+
+<script>
+
+function searchMedal() {
+
+  const medalName =
+    document.getElementById("medalInput").value;
+
+  const medal =
+    medals.find(m => m.name === medalName);
+
+  if (!medal) {
+
+    document.getElementById("result").innerHTML =
+      "メダルが見つかりません";
+
+    return;
+  }
+
+  document.getElementById("result").innerHTML = `
+    <h2>${medal.name}</h2>
+
+    <h3>タグ</h3>
+
+    <ul>
+      ${medal.tags.map(tag => `<li>${tag}</li>`).join("")}
+    </ul>
+
+    <h3>固有特性</h3>
+
+    <p>${medal.effect}</p>
+  `;
+}
+
+</script>
+
+</body>
+</html>
