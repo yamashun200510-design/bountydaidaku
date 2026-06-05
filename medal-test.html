@@ -77,16 +77,27 @@ document.getElementById("result").innerHTML =
   }
 
   const effect = tagGroups[group];
+  const relatedMedals = medals.filter(
+  medal => medal.tags.includes(tagName)
+);  
 
-  document.getElementById("tagEffect").innerHTML = `
-    <h2>${tagName}</h2>
+document.getElementById("tagEffect").innerHTML = `
+  <h2>${tagName}</h2>
 
-    <p>2セット</p>
-    <p>${effect.two}</p>
+  <p>2セット</p>
+  <p>${effect.two}</p>
 
-    <p>3セット</p>
-    <p>${effect.three}</p>
-  `;
+  <p>3セット</p>
+  <p>${effect.three}</p>
+
+  <h3>このタグを持つメダル</h3>
+
+  <ul>
+    ${relatedMedals.map(
+      medal => `<li>${medal.name}</li>`
+    ).join("")}
+  </ul>
+`;
 }
 
 </script>
