@@ -17,7 +17,10 @@
 
 <div id="result"></div>
 
+<div id="tagEffect"></div>
+
 <script src="medals.js"></script>
+<script src="tags.js"></script>
 
 <script>
 
@@ -45,7 +48,13 @@ document.getElementById("result").innerHTML =
     <h3>タグ</h3>
 
     <ul>
-      ${medal.tags.map(tag => `<li>${tag}</li>`).join("")}
+      ${medal.tags.map(tag =>
+  `<li>
+    <button onclick="showTagEffect('${tag}')">
+      ${tag}
+    </button>
+  </li>`
+).join("")}
     </ul>
 
     <h3>固有特性</h3>
@@ -56,6 +65,28 @@ document.getElementById("result").innerHTML =
     <hr>
   `).join("");
    
+}
+  function showTagEffect(tagName) {
+
+  const group = tags[tagName];
+
+  if (!group) {
+    document.getElementById("tagEffect").innerHTML =
+      `${tagName} のタグ効果データがありません`;
+    return;
+  }
+
+  const effect = tagGroups[group];
+
+  document.getElementById("tagEffect").innerHTML = `
+    <h2>${tagName}</h2>
+
+    <p>2セット</p>
+    <p>${effect.two}</p>
+
+    <p>3セット</p>
+    <p>${effect.three}</p>
+  `;
 }
 
 </script>
