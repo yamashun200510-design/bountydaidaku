@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>バウンティ大学【レクサカ】</title>
+
   <style>
     :root {
       --blue: #1d75d8;
@@ -743,6 +744,90 @@
 .youtube-button:hover {
   transform: translateY(-1px);
 }
+   /* お知らせスライダー */
+.notice-slider {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(219, 231, 241, 0.95);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.notice-track {
+  width: min(1120px, calc(100% - 32px));
+  height: 48px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.notice-item {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-dark);
+  font-size: 1rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: noticeSlide 12s infinite;
+}
+
+.notice-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.notice-item:nth-child(2) {
+  animation-delay: 3s;
+}
+
+.notice-item:nth-child(3) {
+  animation-delay: 6s;
+}
+
+.notice-item:nth-child(4) {
+  animation-delay: 9s;
+}
+
+@keyframes noticeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  22% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@media (max-width: 560px) {
+  .notice-track {
+    width: min(100% - 24px, 1120px);
+    height: 44px;
+  }
+
+  .notice-item {
+    justify-content: flex-start;
+    font-size: 0.92rem;
+  }
+} 
   </style>
 </head>
 <body>
@@ -765,6 +850,14 @@
     </div>
   </header>
 
+<section class="notice-slider" aria-label="お知らせ">
+  <div class="notice-track">
+    <p class="notice-item">📢 最新情報掲載中</p>
+    <p class="notice-item">📺 レクサカチャンネル登録よろしく</p>
+    <p class="notice-item">🎓 裏講義004公開</p>
+    <p class="notice-item">🎰 今週のガチャ更新</p>
+  </div>
+</section>
   <section class="hero">
     <div class="hero-inner">
     　<div class="hero-copy">
