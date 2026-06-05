@@ -626,6 +626,93 @@
         flex-direction: column;
       }
     }
+    <!-- 既存の .campus-panel / .building のCSSは削除して、代わりに以下を追加してください -->
+
+.special-lecture-card {
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow);
+}
+
+.special-label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 7px 12px;
+  color: var(--red-dark);
+  font-size: 0.88rem;
+  font-weight: 900;
+  border: 1px solid rgba(217, 37, 53, 0.24);
+  border-radius: 999px;
+  background: #fff7f8;
+}
+
+.video-thumb {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #dbe7f1;
+  background: #eef7ff;
+  aspect-ratio: 16 / 9;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.video-thumb::after {
+  content: "▶";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 900;
+  border-radius: 999px;
+  background: rgba(217, 37, 53, 0.92);
+  box-shadow: 0 10px 25px rgba(217, 37, 53, 0.3);
+}
+
+.special-lecture-card h2 {
+  margin: 16px 0 8px;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+  line-height: 1.3;
+  color: #0d3b66;
+}
+
+.special-lecture-card p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.youtube-button {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  color: #fff;
+  font-weight: 900;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--red), #ff5a68);
+  box-shadow: 0 12px 26px rgba(217, 37, 53, 0.24);
+}
+
+.youtube-button:hover {
+  transform: translateY(-1px);
+}
   </style>
 </head>
 <body>
