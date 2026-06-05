@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>タグ検索テスト</title>
+</head>
+<body>
+
+<h1>タグ検索テスト</h1>
+
+<input id="tagInput" placeholder="ワノ国">
+
+<button onclick="searchTag()">
+検索
+</button>
+
+<div id="result"></div>
+
+<script src="tags.js"></script>
+
+<script>
+
+function searchTag() {
+
+  const tagName =
+    document.getElementById("tagInput").value;
+
+  const group = tags[tagName];
+
+  if (!group) {
+
+    document.getElementById("result").innerHTML =
+      "タグが見つかりません";
+
+    return;
+  }
+
+  const effect = tagGroups[group];
+
+  document.getElementById("result").innerHTML = `
+    <h3>${tagName}</h3>
+
+    <p>2セット</p>
+    <p>${effect.two}</p>
+
+    <p>3セット</p>
+    <p>${effect.three}</p>
+  `;
+}
+
+</script>
+
+</body>
+</html>
