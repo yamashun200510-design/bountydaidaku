@@ -4,1209 +4,265 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>バウンティ大学【レクサカ】</title>
-
   <style>
     :root {
-      --blue: #1d75d8;
-      --sky: #dff3ff;
+      --bg: #090704;
+      --panel: rgba(24, 18, 10, 0.94);
+      --panel-2: rgba(35, 25, 12, 0.94);
+      --ink: #fff6db;
+      --muted: #c9b58c;
+      --gold: #ffc95c;
       --red: #d92535;
-      --red-dark: #a91624;
-      --ink: #17324d;
-      --muted: #62748a;
-      --line: #dbe7f1;
-      --white: #ffffff;
-      --gold: #ffb923;
-      --soft: #f7fbff;
-      --shadow: 0 18px 45px rgba(24, 74, 120, 0.16);
+      --line: rgba(255, 201, 92, 0.24);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
       font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, Arial, sans-serif;
       line-height: 1.7;
       background:
-        radial-gradient(circle at 12% 10%, rgba(255,255,255,0.92) 0 8%, transparent 9%),
-        radial-gradient(circle at 88% 14%, rgba(255,255,255,0.82) 0 7%, transparent 8%),
-        linear-gradient(180deg, var(--sky) 0%, #eef9ff 36%, #ffffff 72%);
+        radial-gradient(circle at 12% 8%, rgba(255,201,92,0.18) 0 8%, transparent 9%),
+        radial-gradient(circle at 88% 13%, rgba(217,37,53,0.14) 0 7%, transparent 8%),
+        linear-gradient(180deg, #090704 0%, #171008 42%, #24190d 100%);
       min-height: 100vh;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     .site-header {
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(255, 255, 255, 0.9);
-      border-bottom: 1px solid rgba(219, 231, 241, 0.9);
+      background: rgba(9, 7, 4, 0.9);
+      border-bottom: 1px solid rgba(255, 201, 92, 0.22);
       backdrop-filter: blur(14px);
     }
-
+    .header-inner, .section, .notice-carousel-inner, .hero-inner, .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
     .header-inner {
-      width: min(1120px, calc(100% - 32px));
       min-height: 72px;
-      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-    }
-
-    .brand-mark {
-      width: 60px;
-      height: 60px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--blue), #55b8ef);
-      box-shadow: 0 10px 25px rgba(29, 117, 216, 0.26);
-    }
-
-    .brand-name {
-      display: block;
-      font-size: clamp(1rem, 2vw, 1.18rem);
-      line-height: 1.25;
-    }
-
-    .brand-sub {
-      display: block;
-      color: var(--red);
-      font-size: 0.78rem;
-      font-weight: 900;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--muted);
-      font-size: 0.92rem;
-      font-weight: 900;
-    }
-
-    .nav a {
-      padding: 10px 12px;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-
-    .nav a:hover {
-      color: var(--blue);
-      background: #eef7ff;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 58px 0 34px;
-      border-bottom: 1px solid #e8f2fa;
-    }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow:
-        42px 8px 0 12px rgba(255,255,255,0.9),
-        86px 4px 0 2px rgba(255,255,255,0.75);
-    }
-
-    .hero::before {
-      width: 92px;
-      height: 36px;
-      left: 5%;
-      top: 82px;
-    }
-
-    .hero::after {
-      width: 110px;
-      height: 40px;
-      right: 10%;
-      top: 38px;
-      opacity: 0.78;
-    }
-
-/* ヒーローをPCでは2カラム、スマホでは縦並びにする */
-.hero-inner {
-  position: relative;
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-  gap: 36px;
-  align-items: center;
-}
-
-.hero-copy {
-  min-width: 0;
-}
-
-.special-lecture-card {
-  min-width: 0;
-  width: 100%;
-  align-self: center;
-}
-
-/* タブレット・スマホでは縦並び */
-@media (max-width: 860px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .special-lecture-card {
-    order: -1;
-  }
-}
-
-/* 小さいスマホで余白を調整 */
-@media (max-width: 560px) {
-  .hero-inner {
-    width: min(100% - 24px, 1120px);
-  }
-}
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      margin: 0 0 16px;
-      padding: 7px 12px;
-      color: var(--red-dark);
-      font-size: 0.88rem;
-      font-weight: 900;
-      border: 1px solid rgba(217, 37, 53, 0.24);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
-    }
-
-    h1 {
-      margin: 0;
-      color: #0d3b66;
-      font-size: clamp(2.35rem, 7vw, 5rem);
-      line-height: 1.03;
-      letter-spacing: 0;
-    }
-
-    .catch {
-      margin: 22px 0 8px;
-      font-size: clamp(1.12rem, 2.6vw, 1.55rem);
-      font-weight: 900;
-    }
-
-    .motto {
-      margin: 0 0 26px;
-      color: var(--muted);
-      font-weight: 800;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .freshman-link {
-      display: inline-flex;
-      min-height: 62px;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 30px;
-      color: #fff;
-      font-size: clamp(1.12rem, 3vw, 1.45rem);
-      font-weight: 900;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--red), #ff5a68);
-      box-shadow: 0 14px 30px rgba(217, 37, 53, 0.28);
-    }
-
-    .outline-link {
-      display: inline-flex;
-      min-height: 50px;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 20px;
-      color: var(--blue);
-      font-weight: 900;
-      border: 2px solid #b8dcf8;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.86);
-    }
-
-    .campus-panel {
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,0.78);
-      border-radius: 8px;
-      background: rgba(255,255,255,0.88);
-      box-shadow: var(--shadow);
-    }
-
-    .building {
-      position: relative;
-      height: 230px;
-      overflow: hidden;
-      border: 1px solid #c6ddeb;
-      border-radius: 8px;
-      background: linear-gradient(180deg, #ffffff 0 64%, #f1f6fb 64% 100%);
-    }
-
-    .building::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 28px;
-      width: 76%;
-      height: 60px;
-      transform: translateX(-50%);
-      clip-path: polygon(50% 0, 100% 100%, 0 100%);
-      background: #e8f2fb;
-      border: 1px solid #c6ddeb;
-    }
-
-    .building::after {
-      content: "";
-      position: absolute;
-      left: 14%;
-      right: 14%;
-      bottom: 0;
-      height: 110px;
-      background:
-        linear-gradient(90deg, #b9dbf4 0 14%, transparent 14% 28%, #b9dbf4 28% 42%, transparent 42% 56%, #b9dbf4 56% 70%, transparent 70% 84%, #b9dbf4 84%),
-        linear-gradient(180deg, #fff, #f7fbff);
-      border: 1px solid #c6ddeb;
-      border-bottom: 0;
-    }
-
-    .panel-note {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-weight: 900;
-      text-align: center;
-    }
-
-    main {
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), #fff 20%);
-    }
-
-    .section {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 54px 0;
-    }
-
-    .section-head {
-      margin-bottom: 22px;
-      padding-left: 16px;
-      border-left: 6px solid var(--red);
-    }
-
-    .section-title {
-      margin: 0;
-      font-size: clamp(1.55rem, 3.5vw, 2.35rem);
-      line-height: 1.25;
-    }
-
-    .section-copy {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-weight: 800;
-    }
-
-    .freshman {
-      background: linear-gradient(135deg, #fff 0%, #fff 55%, #eef8ff 55% 100%);
-      border-top: 1px solid #eaf3fb;
-      border-bottom: 1px solid #eaf3fb;
-    }
-
-    .guide-layout {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .guide-main {
-      padding: 28px;
-      color: #fff;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--red), #f04755);
-      box-shadow: 0 18px 36px rgba(217, 37, 53, 0.18);
-    }
-
-    .guide-main h2 {
-      margin: 0 0 12px;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.15;
-    }
-
-    .guide-main p {
-      margin: 0 0 24px;
-      font-weight: 900;
-    }
-
-    .guide-main a {
-      display: inline-flex;
-      min-height: 52px;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 22px;
-      color: var(--red);
-      font-weight: 900;
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    .guide-list,
-    .faculty-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .guide-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .card {
-      min-width: 0;
-      padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 10px 26px rgba(23, 50, 77, 0.08);
-    }
-
-    .faculty-card {
-      border-top: 5px solid var(--blue);
-    }
-
-    .faculty-card:nth-child(2) {
-      border-top-color: var(--red);
-    }
-
-    .faculty-card:nth-child(3) {
-      border-top-color: var(--gold);
-    }
-
-    .faculty-card:nth-child(4) {
-      border-top-color: #1aaf83;
-    }
-
-    .faculty-card:nth-child(5) {
-      border-top-color: #7957d5;
-    }
-
-    .faculty-card:nth-child(6) {
-      border-top-color: #f16b2f;
-    }
-
-    .faculty-label {
-      display: inline-block;
-      margin-bottom: 10px;
-      color: var(--red);
-      font-size: 0.78rem;
-      font-weight: 900;
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 1.15rem;
-      line-height: 1.35;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-      font-weight: 700;
-    }
-
-    .ranking {
-      counter-reset: rank;
-      display: grid;
-      gap: 14px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .ranking li {
-      counter-increment: rank;
-    }
-
-    .lecture-card {
-      display: grid;
-      grid-template-columns: 68px 1fr auto;
-      gap: 16px;
-      align-items: center;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 10px 26px rgba(23, 50, 77, 0.08);
-    }
-
-    .lecture-card::before {
-      content: counter(rank);
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: 1.35rem;
-      font-weight: 900;
-      border-radius: 8px;
-      background: var(--blue);
-    }
-
-    .ranking li:nth-child(1) .lecture-card::before {
-      background: var(--red);
-    }
-
-    .ranking li:nth-child(2) .lecture-card::before {
-      background: var(--gold);
-    }
-
-    .lecture-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.15rem;
-      line-height: 1.35;
-    }
-
-    .lecture-card p {
-      margin: 0;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .lecture-button {
-      min-width: 96px;
-      padding: 10px 14px;
-      color: var(--blue);
-      text-align: center;
-      font-weight: 900;
-      border: 2px solid #c7e4f8;
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .lecture-link {
-      display: flex;
-      min-height: 58px;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-      text-align: center;
-      font-weight: 900;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 8px 18px rgba(23, 50, 77, 0.06);
-    }
-
-    .lecture-link:hover,
-    .lecture-button:hover {
-      color: var(--red);
-      border-color: rgba(217, 37, 53, 0.38);
-      background: #fff7f8;
-    }
-
-    .site-footer {
-      padding: 34px 0;
-      color: #fff;
-      background: #0d3b66;
-    }
-
-    .footer-inner {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      font-weight: 900;
-    }
-
-    .footer-inner p {
-      margin: 0;
-    }
-
-    .footer-motto {
-      color: #b8dcf8;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; }
+    .brand-mark { width: 54px; height: 54px; object-fit: cover; border-radius: 8px; box-shadow: 0 10px 25px rgba(255, 201, 92, 0.26); }
+    .brand-sub { display: block; color: var(--gold); font-size: 0.78rem; }
+    .nav { display: flex; gap: 6px; color: #d8c49b; font-size: 0.92rem; font-weight: 900; }
+    .nav a { padding: 10px 12px; border-radius: 6px; white-space: nowrap; }
+    .nav a:hover { color: var(--gold); background: rgba(255, 201, 92, 0.12); }
+
+    .notice-carousel { border-bottom: 1px solid rgba(255, 201, 92, 0.18); background: rgba(9, 7, 4, 0.78); }
+    .notice-carousel-inner { padding: 18px 0; }
+    .notice-carousel-window { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); }
+    .notice-carousel-track { display: flex; transition: transform 0.55s ease; }
+    .notice-slide { min-width: 100%; }
+    .notice-slide a { display: grid; min-height: 210px; grid-template-columns: minmax(240px, 42%) 1fr; }
+    .notice-slide img { width: 100%; height: 100%; min-height: 210px; display: block; object-fit: cover; }
+    .notice-slide-body { display: flex; flex-direction: column; justify-content: center; padding: 28px 64px 28px 30px; }
+    .pill { width: fit-content; margin-bottom: 10px; padding: 5px 10px; color: #1a1106; font-size: 0.8rem; font-weight: 900; border-radius: 999px; background: linear-gradient(135deg, #ffe19a, var(--gold)); }
+    .notice-slide h2 { margin: 0 0 8px; color: var(--ink); font-size: clamp(1.25rem, 3vw, 2rem); line-height: 1.28; }
+    .notice-slide p { margin: 0; color: var(--muted); font-weight: 800; }
+    .notice-control { position: absolute; top: 50%; z-index: 2; width: 42px; height: 42px; display: grid; place-items: center; transform: translateY(-50%); color: #1a1106; font-size: 1.6rem; font-weight: 900; border: 0; border-radius: 999px; background: rgba(255, 201, 92, 0.86); cursor: pointer; }
+    .notice-control:hover { background: var(--red); color: #fff; }
+    .notice-control-prev { left: 14px; }
+    .notice-control-next { right: 14px; }
+
+    .hero { padding: 58px 0 42px; border-bottom: 1px solid rgba(255, 201, 92, 0.18); }
+    .hero-inner { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr); gap: 28px; align-items: center; }
+    .eyebrow { display: inline-flex; margin: 0 0 16px; padding: 7px 12px; color: #1a1106; font-weight: 900; border-radius: 999px; background: linear-gradient(135deg, #ffe19a, var(--gold)); }
+    h1 { margin: 0; color: var(--ink); font-size: clamp(2.35rem, 7vw, 5rem); line-height: 1.03; letter-spacing: 0; }
+    .catch { margin: 22px 0 8px; font-size: clamp(1.12rem, 2.6vw, 1.55rem); font-weight: 900; }
+    .motto { margin: 0 0 26px; color: var(--muted); font-weight: 800; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .primary-link, .outline-link, .lecture-button, .youtube-button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; padding: 12px 20px; font-weight: 900; border-radius: 8px; }
+    .primary-link, .youtube-button { color: #1a1106; background: linear-gradient(135deg, #ffe19a, var(--gold)); box-shadow: 0 14px 30px rgba(255, 201, 92, 0.24); }
+    .outline-link, .lecture-button { color: var(--gold); border: 2px solid rgba(255, 201, 92, 0.34); background: rgba(20, 14, 7, 0.86); }
+
+    .feature-card, .card, .lecture-card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); }
+    .feature-card { padding: 24px; }
+    .video-thumb { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #090704; aspect-ratio: 16 / 9; }
+    .video-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .feature-card h2 { margin: 16px 0 8px; color: var(--ink); font-size: clamp(1.35rem, 3vw, 1.8rem); line-height: 1.3; }
+    .feature-card p, .card p, .lecture-card p, .section-copy { color: var(--muted); font-weight: 800; }
+
+    main { background: linear-gradient(180deg, rgba(9, 7, 4, 0.14), rgba(9, 7, 4, 0.92) 18%); }
+    .section { padding: 54px 0; }
+    .section-head { margin-bottom: 22px; padding-left: 16px; border-left: 6px solid var(--red); }
+    .section-title { margin: 0; font-size: clamp(1.55rem, 3.5vw, 2.35rem); line-height: 1.25; }
+    .section-copy { margin: 5px 0 0; }
+    .guide-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 18px; }
+    .guide-main { padding: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--red), #f04755); box-shadow: var(--shadow); }
+    .guide-main h2 { margin: 0 0 12px; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.15; }
+    .guide-main p { margin: 0 0 22px; font-weight: 900; }
+    .guide-list, .faculty-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .guide-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card { padding: 22px; }
+    .faculty-card { border-top: 5px solid var(--gold); }
+    .faculty-label { display: inline-block; margin-bottom: 10px; color: var(--gold); font-size: 0.78rem; font-weight: 900; }
+    .card h3, .lecture-card h3 { margin: 0 0 10px; font-size: 1.15rem; line-height: 1.35; }
+
+    .ranking { counter-reset: rank; display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+    .ranking li { counter-increment: rank; }
+    .lecture-card { display: grid; grid-template-columns: 68px 1fr auto; gap: 16px; align-items: center; padding: 18px; }
+    .lecture-card::before { content: counter(rank); width: 52px; height: 52px; display: grid; place-items: center; color: #fff; font-size: 1.35rem; font-weight: 900; border-radius: 8px; background: var(--red); }
+    .links-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .lecture-link { display: flex; min-height: 58px; align-items: center; justify-content: center; padding: 12px; text-align: center; font-weight: 900; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+
+    .legal-footer { padding: 24px 0; color: #fff; background: #090704; border-top: 1px solid rgba(255, 201, 92, 0.22); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; font-weight: 900; }
+    .footer-inner p { margin: 0; }
+    .legal-footer-note { max-width: 620px; color: #d8c49b; font-size: 0.88rem; font-weight: 700; line-height: 1.65; }
 
     @media (max-width: 860px) {
-      .header-inner {
-        min-height: auto;
-        padding: 12px 0;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .nav {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 3px;
-      }
-
-      .hero {
-        padding-top: 36px;
-      }
-
-      .hero-inner,
-      .guide-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .campus-panel {
-        order: -1;
-      }
-
-      .building {
-        height: 180px;
-      }
-
-      .faculty-grid,
-      .guide-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .links-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .header-inner { min-height: auto; padding: 12px 0; align-items: flex-start; flex-direction: column; }
+      .nav { width: 100%; overflow-x: auto; padding-bottom: 3px; }
+      .hero-inner, .guide-layout { grid-template-columns: 1fr; }
+      .feature-card { order: -1; }
+      .faculty-grid, .guide-list, .links-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-
+    @media (max-width: 700px) {
+      .notice-carousel-inner, .header-inner, .section, .hero-inner, .footer-inner { width: min(100% - 24px, 1120px); }
+      .notice-slide a { min-height: 0; grid-template-columns: 1fr; }
+      .notice-slide img { min-height: 0; aspect-ratio: 16 / 9; }
+      .notice-slide-body { min-height: 174px; padding: 18px 58px 20px; }
+    }
     @media (max-width: 560px) {
-      .header-inner,
-      .hero-inner,
-      .section,
-      .footer-inner {
-        width: min(100% - 24px, 1120px);
-      }
-
-      .brand-mark {
-        width: 40px;
-        height: 40px;
-      }
-
-      .hero-actions {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .freshman-link,
-      .outline-link {
-        width: 100%;
-      }
-
-      .section {
-        padding: 42px 0;
-      }
-
-      .faculty-grid,
-      .guide-list,
-      .links-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .lecture-card {
-        grid-template-columns: 54px 1fr;
-      }
-
-      .lecture-card::before {
-        width: 46px;
-        height: 46px;
-      }
-
-      .lecture-button {
-        grid-column: 1 / -1;
-        width: 100%;
-      }
-
-      .footer-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
+      .brand-mark { width: 40px; height: 40px; }
+      .hero-actions { flex-direction: column; }
+      .primary-link, .outline-link { width: 100%; }
+      .faculty-grid, .guide-list, .links-grid { grid-template-columns: 1fr; }
+      .lecture-card { grid-template-columns: 54px 1fr; }
+      .lecture-button { grid-column: 1 / -1; width: 100%; }
+      .footer-inner { flex-direction: column; }
     }
-
-.special-lecture-card {
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: var(--shadow);
-}
-
-.special-label {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 0 14px;
-  padding: 7px 12px;
-  color: var(--red-dark);
-  font-size: 0.88rem;
-  font-weight: 900;
-  border: 1px solid rgba(217, 37, 53, 0.24);
-  border-radius: 999px;
-  background: #fff7f8;
-}
-
-.video-thumb {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid #dbe7f1;
-  background: #eef7ff;
-  aspect-ratio: 16 / 9;
-}
-
-.video-thumb img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.video-thumb::after {
-  content: "▶";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 58px;
-  height: 58px;
-  display: grid;
-  place-items: center;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-size: 1.45rem;
-  font-weight: 900;
-  border-radius: 999px;
-  background: rgba(217, 37, 53, 0.92);
-  box-shadow: 0 10px 25px rgba(217, 37, 53, 0.3);
-}
-
-.special-lecture-card h2 {
-  margin: 16px 0 8px;
-  font-size: clamp(1.35rem, 3vw, 1.8rem);
-  line-height: 1.3;
-  color: #0d3b66;
-}
-
-.special-lecture-card p {
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-weight: 800;
-}
-
-.youtube-button {
-  display: inline-flex;
-  min-height: 52px;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 22px;
-  color: #fff;
-  font-weight: 900;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--red), #ff5a68);
-  box-shadow: 0 12px 26px rgba(217, 37, 53, 0.24);
-}
-
-.youtube-button:hover {
-  transform: translateY(-1px);
-}
-   /* 画像付きお知らせカルーセル */
-.notice-carousel {
-  border-bottom: 1px solid rgba(219, 231, 241, 0.95);
-  background: rgba(255, 255, 255, 0.84);
-  backdrop-filter: blur(10px);
-}
-
-.notice-carousel-inner {
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 18px 0;
-}
-
-.notice-carousel-window {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 12px 28px rgba(23, 50, 77, 0.08);
-}
-
-.notice-carousel-track {
-  display: flex;
-  transition: transform 0.55s ease;
-}
-
-.notice-slide {
-  min-width: 100%;
-}
-
-.notice-slide a {
-  display: grid;
-  min-height: 210px;
-  grid-template-columns: minmax(240px, 42%) 1fr;
-  color: inherit;
-}
-
-.notice-slide img {
-  width: 100%;
-  height: 100%;
-  min-height: 210px;
-  display: block;
-  object-fit: cover;
-}
-
-.notice-slide-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 28px 64px 28px 30px;
-}
-
-.notice-label {
-  width: fit-content;
-  margin-bottom: 10px;
-  padding: 5px 10px;
-  color: var(--red-dark);
-  font-size: 0.8rem;
-  font-weight: 900;
-  border: 1px solid rgba(217, 37, 53, 0.22);
-  border-radius: 999px;
-  background: #fff7f8;
-}
-
-.notice-slide h2 {
-  margin: 0 0 8px;
-  color: #0d3b66;
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  line-height: 1.28;
-}
-
-.notice-slide p {
-  margin: 0;
-  color: var(--muted);
-  font-weight: 800;
-}
-
-.notice-control {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 900;
-  line-height: 1;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(13, 59, 102, 0.78);
-  cursor: pointer;
-}
-
-.notice-control:hover {
-  background: var(--red);
-}
-
-.notice-control-prev {
-  left: 14px;
-}
-
-.notice-control-next {
-  right: 14px;
-}
-
-@media (max-width: 700px) {
-  .notice-carousel-inner {
-    width: min(100% - 24px, 1120px);
-    padding: 14px 0;
-  }
-
-  .notice-slide a {
-    min-height: 0;
-    grid-template-columns: 1fr;
-  }
-
-  .notice-slide img {
-    min-height: 0;
-    aspect-ratio: 16 / 9;
-  }
-
-  .notice-slide-body {
-    min-height: 174px;
-    padding: 18px 58px 20px;
-  }
-
-  .notice-control {
-    width: 38px;
-    height: 38px;
-  }
-} 
   </style>
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="index.html" aria-label="バウンティ大学【レクサカ】トップ">
-        <span>
-          <img src="logo.png" class="brand-mark" alt="バウンティ大学校章">
-          <span class="brand-sub">Bounty University</span>
-        </span>
+      <a class="brand" href="index.html" aria-label="バウンティ大学トップ">
+        <img src="logo.png" class="brand-mark" alt="バウンティ大学校章">
+        <span>バウンティ大学【レクサカ】<span class="brand-sub">Bounty University</span></span>
       </a>
-
       <nav class="nav" aria-label="主要メニュー">
         <a href="index.html">トップ</a>
         <a href="#freshman">新入生</a>
         <a href="#faculties">学部</a>
-        <a href="#ranking">人気講義</a>
+        <a href="#ranking">学長認定</a>
         <a href="#lectures">講義一覧</a>
       </nav>
     </div>
   </header>
 
-<section class="notice-carousel" aria-label="お知らせ">
-  <div class="notice-carousel-inner">
-    <div class="notice-carousel-window" data-notice-carousel>
-      <div class="notice-carousel-track">
-        <article class="notice-slide">
-          <a href="news.html">
-            <img src="https://img.youtube.com/vi/jP7Z5QWQLSk/hqdefault.jpg" alt="最新動画のお知らせ">
-            <div class="notice-slide-body">
-              <span class="notice-label">最新動画</span>
-              <h2>今週の注目講義を公開しました</h2>
-              <p>初心者にも分かりやすいメダル解説動画を仮データで掲載しています。</p>
-            </div>
-          </a>
-        </article>
-        <article class="notice-slide">
-          <a href="gacha.html">
-            <img src="https://placehold.co/960x540/1d75d8/ffffff?text=Gacha+Lab" alt="ガチャ研究室のお知らせ">
-            <div class="notice-slide-body">
-              <span class="notice-label">ガチャ研究室</span>
-              <h2>新ガチャ評価レポート準備中</h2>
-              <p>学長が最新ガチャの注目キャラと引きどころを研究する仮データです。</p>
-            </div>
-          </a>
-        </article>
-        <article class="notice-slide">
-          <a href="news.html">
-            <img src="https://placehold.co/960x540/d92535/ffffff?text=Secret+Lecture" alt="裏講義紹介のお知らせ">
-            <div class="notice-slide-body">
-              <span class="notice-label">裏講義紹介</span>
-              <h2>裏講義004を紹介します</h2>
-              <p>上級者向けの立ち回りと環境対策を紹介する仮データです。</p>
-            </div>
-          </a>
-        </article>
+  <section class="notice-carousel" aria-label="お知らせ掲示板">
+    <div class="notice-carousel-inner">
+      <div class="notice-carousel-window" data-notice-carousel>
+        <div class="notice-carousel-track">
+          <article class="notice-slide">
+            <a href="news.html"><img src="https://img.youtube.com/vi/jP7Z5QWQLSk/hqdefault.jpg" alt="最新動画講義"><div class="notice-slide-body"><span class="pill">最新動画</span><h2>学長から最新動画講義を公開</h2><p>初心者学生にも分かりやすいメダル授業を掲示中です。</p></div></a>
+          </article>
+          <article class="notice-slide">
+            <a href="gacha.html"><img src="https://placehold.co/960x540/1a1106/ffc95c?text=Gacha+Lab" alt="ガチャ研究室"><div class="notice-slide-body"><span class="pill">ガチャ研究室</span><h2>新ガチャ評価レポート準備中</h2><p>引くべきか温存か、学長目線で研究します。</p></div></a>
+          </article>
+          <article class="notice-slide">
+            <a href="news.html"><img src="https://placehold.co/960x540/d92535/fff6db?text=Secret+Lecture" alt="裏講義紹介"><div class="notice-slide-body"><span class="pill">裏講義紹介</span><h2>裏講義004を特別公開</h2><p>上級者向けの立ち回りと環境対策を扱う特別講義です。</p></div></a>
+          </article>
+        </div>
+        <button class="notice-control notice-control-prev" type="button" aria-label="前のお知らせへ">‹</button>
+        <button class="notice-control notice-control-next" type="button" aria-label="次のお知らせへ">›</button>
       </div>
-      <button class="notice-control notice-control-prev" type="button" aria-label="前のお知らせへ">‹</button>
-      <button class="notice-control notice-control-next" type="button" aria-label="次のお知らせへ">›</button>
     </div>
-  </div>
-</section>
+  </section>
+
   <section class="hero">
     <div class="hero-inner">
-    　<div class="hero-copy">
-        <p class="eyebrow">校訓 知らないを、強さに変える。</p>
+      <div>
+        <p class="eyebrow">学長訓 お宝への地図を、学生へ。</p>
         <h1>バウンティ大学<br>【レクサカ】</h1>
-        <p class="catch">すべてのバウンティプレイヤーに学びを。</p>
-        <p class="motto">初心者から上級者まで、勝つための知識を明るく見やすく学べる大学風サイトです。</p>
+        <p class="catch">勝利・知識・ダイヤを掴む攻略大学。</p>
+        <p class="motto">初心者学生も歓迎。講義・研究・特別講義でリーグに出る準備を整えます。</p>
         <div class="hero-actions">
-          <a class="freshman-link" href="#freshman">新入生はこちら</a>
-          <a class="outline-link" href="#ranking">人気講義を見る</a>
+          <a class="primary-link" href="#freshman">新入生はこちら</a>
+          <a class="outline-link" href="#ranking">学長認定講義を見る</a>
         </div>
-        <article class="special-lecture-card">
- <p class="special-label">🎓 今週の特別講義</p>
-
-<a class="video-thumb"
-href="https://youtu.be/jP7Z5QWQLSk"
-target="_blank">
-
-<img src="https://img.youtube.com/vi/jP7Z5QWQLSk/hqdefault.jpg"
-alt="最新動画サムネイル">
-
-</a>
-
-<h2>【初心者の方必見！！】所要時間１分で最強メダルが分かる解説【メダルの入手方法、特性継承等】</h2>
-
-<p>
-今週の注目講義を動画で受講できます。
-</p>
-
-<a class="youtube-button"
-href="https://youtu.be/jP7Z5QWQLSk"
-target="_blank">
-
-受講する ▶
-
-</a>
-</article>
       </div>
-
-     
+      <article class="feature-card">
+        <p class="pill">今週の特別講義</p>
+        <a class="video-thumb" href="https://youtu.be/jP7Z5QWQLSk" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/jP7Z5QWQLSk/hqdefault.jpg" alt="最新動画サムネイル"></a>
+        <h2>1分で最強メダルが分かる解説</h2>
+        <p>学長が学生に届ける、勝利へのお宝地図になる動画講義です。</p>
+        <a class="youtube-button" href="https://youtu.be/jP7Z5QWQLSk" target="_blank" rel="noopener">受講する ▶</a>
+      </article>
+    </div>
   </section>
 
   <main>
-    <section id="freshman" class="freshman">
-      <div class="section guide-layout">
-        <div class="guide-main">
-          <h2>新入生はこちら</h2>
-          <p>まずは基礎、レベル上げ、メダル、キャラ理解の順に学ぶと、試合中の迷いが減ります。</p>
-          <a href="teach.html">はじめての講義へ</a>
-        </div>
-
-        <div class="guide-list">
-          <article class="card">
-            <h3>1限 基本を知る</h3>
-            <p>立ち回り、役職、旗の守り方を確認します。</p>
-          </article>
-          <article class="card">
-            <h3>2限 育成を整える</h3>
-            <p>レベル100、メダル、サポートを見直します。</p>
-          </article>
-          <article class="card">
-            <h3>3限 キャラを学ぶ</h3>
-            <p>環境キャラの強みと対策を整理します。</p>
-          </article>
-          <article class="card">
-            <h3>4限 実戦で試す</h3>
-            <p>学んだことをリーグで少しずつ使います。</p>
-          </article>
-        </div>
+    <section id="freshman" class="section guide-layout">
+      <div class="guide-main"><h2>新入生はこちら</h2><p>まずは基礎、レベル上げ、メダル、キャラ理解の順に学ぶと、試合中の迷いが減ります。</p><a class="youtube-button" href="teach.html">はじめての講義へ</a></div>
+      <div class="guide-list">
+        <article class="card"><h3>1限 基本を知る</h3><p>立ち回り、役職、旗の守り方を確認します。</p></article>
+        <article class="card"><h3>2限 育成を整える</h3><p>レベル100、メダル、サポートを見直します。</p></article>
+        <article class="card"><h3>3限 キャラを学ぶ</h3><p>環境キャラの強みと対策を整理します。</p></article>
+        <article class="card"><h3>4限 実戦で試す</h3><p>学んだことをリーグで少しずつ使います。</p></article>
       </div>
     </section>
 
     <section id="faculties" class="section">
-      <div class="section-head">
-        <h2 class="section-title">学部紹介</h2>
-        <p class="section-copy">目的に合わせて、今の自分に必要な講義を選べます。</p>
-      </div>
-
+      <div class="section-head"><h2 class="section-title">学部紹介</h2><p class="section-copy">学生それぞれの目的に合わせて、お宝への地図になる授業を選べます。</p></div>
       <div class="faculty-grid">
-        <article class="card faculty-card">
-          <span class="faculty-label">初心者向け</span>
-          <h3>基礎教養学部</h3>
-          <p>まず読むべき講義と、バウンティの基本を学ぶ学部です。</p>
-        </article>
-        <article class="card faculty-card">
-          <span class="faculty-label">育成</span>
-          <h3>レベル・メダル学部</h3>
-          <p>レベル100やメダル構成など、強化の土台を学びます。</p>
-        </article>
-        <article class="card faculty-card">
-          <span class="faculty-label">キャラ研究</span>
-          <h3>キャラクター研究学部</h3>
-          <p>ニカ、ロジャー、ロー、スネークなどの特徴を整理します。</p>
-        </article>
-        <article class="card faculty-card">
-          <span class="faculty-label">実戦</span>
-          <h3>立ち回り戦術学部</h3>
-          <p>旗の取り方、守り方、終盤の判断を学びます。</p>
-        </article>
-        <article class="card faculty-card">
-          <span class="faculty-label">特別講義</span>
-          <h3>学長講義</h3>
-          <p>学長ページから、サイト全体の考え方を確認できます。</p>
-        </article>
-        <article class="card faculty-card">
-          <span class="faculty-label">上級者向け</span>
-          <h3>環境対策学部</h3>
-          <p>人気キャラへの対策や、編成の考え方を深めます。</p>
-        </article>
+        <article class="card faculty-card"><span class="faculty-label">初心者向け</span><h3>基礎教養学部</h3><p>まず読むべき講義と、バウンティの基本を学ぶ学部です。</p></article>
+        <article class="card faculty-card"><span class="faculty-label">育成</span><h3>レベル・メダル学部</h3><p>レベル100やメダル構成など、強化の土台を学びます。</p></article>
+        <article class="card faculty-card"><span class="faculty-label">研究室</span><h3>ガチャ研究室</h3><p>ダイヤを使う価値、温存判断、注目キャラを研究します。</p></article>
+        <article class="card faculty-card"><span class="faculty-label">特別講義</span><h3>裏講義</h3><p>中級者以上の学生向けに、環境対策と判断を深めます。</p></article>
+        <article class="card faculty-card"><span class="faculty-label">成績表</span><h3>学長認定Tier表</h3><p>優秀学生や研究対象を大学の成績表風に整理します。</p></article>
+        <article class="card faculty-card"><span class="faculty-label">研究所</span><h3>メダル研究所</h3><p>メダルやタグ効果を、実戦で使える形にまとめます。</p></article>
       </div>
     </section>
 
     <section id="ranking" class="section">
-      <div class="section-head">
-        <h2 class="section-title">人気講義ランキング</h2>
-        <p class="section-copy">迷ったらここから。新入生にも読みやすい講義を集めました。</p>
-      </div>
-
+      <div class="section-head"><h2 class="section-title">学長認定 人気講義</h2><p class="section-copy">迷った学生はここから。勝利に近づくための基礎講義を学長が整理しました。</p></div>
       <ol class="ranking">
-        <li>
-          <article class="lecture-card">
-            <div>
-              <h3>初心者向け講義</h3>
-              <p>バウンティ大学の最初の一歩におすすめです。</p>
-            </div>
-            <a class="lecture-button" href="teach.html">受講する</a>
-          </article>
-        </li>
-        <li>
-          <article class="lecture-card">
-            <div>
-              <h3>メダル講義</h3>
-              <p>キャラをさらに強くするための大事な基礎です。</p>
-            </div>
-            <a class="lecture-button" href="medal.html">受講する</a>
-          </article>
-        </li>
-        <li>
-          <article class="lecture-card">
-            <div>
-              <h3>レベル100講義</h3>
-              <p>育成で迷いやすいポイントを確認できます。</p>
-            </div>
-            <a class="lecture-button" href="level100.html">受講する</a>
-          </article>
-        </li>
+        <li><article class="lecture-card"><div><h3>初心者向け講義</h3><p>バウンティ大学の最初の一歩におすすめです。</p></div><a class="lecture-button" href="teach.html">受講する</a></article></li>
+        <li><article class="lecture-card"><div><h3>メダル講義</h3><p>キャラをさらに強くするための大事な基礎です。</p></div><a class="lecture-button" href="medal.html">受講する</a></article></li>
+        <li><article class="lecture-card"><div><h3>レベル100講義</h3><p>育成で迷いやすいポイントを確認できます。</p></div><a class="lecture-button" href="level100.html">受講する</a></article></li>
       </ol>
     </section>
-<section class="section">
 
-<div class="section-header">
-<h2 class="section-title">📖 用語辞典</h2>
-<p class="section-copy">
-バウンティでよく使われる用語を学びましょう。
-</p>
-</div>
+    <section class="section"><div class="section-head"><h2 class="section-title">学内掲示板・研究室</h2><p class="section-copy">大学からの最新掲示と、ガチャ研究室の講義です。</p></div><div class="links-grid"><a class="lecture-link" href="news.html">お知らせ掲示板</a><a class="lecture-link" href="gacha.html">ガチャ研究室</a><a class="lecture-link" href="yougo.html">用語辞典</a><a class="lecture-link" href="uraskil.html">裏スキル講義</a></div></section>
 
-<div class="links-grid">
-<a class="lecture-link" href="yougo.html#just">ジャスト回避</a>
-<a class="lecture-link" href="yougo.html#damagecut">ダメ減</a>
-<a class="lecture-link" href="yougo.html#defense">防御力無視</a>
-<a class="lecture-link" href="yougo.html#status">状態異常無効</a>
-<a class="lecture-link" href="yougo.html#uraskill">裏スキル</a>
-<a class="lecture-link" href="yougo.html#support">サポートタグ</a>
-</div>
-
-</section>
-    <section class="section">
-
-<div class="section-header">
-<h2 class="section-title">📢 学内掲示板</h2>
-<p class="section-copy">
-バウンティ大学の最新情報を掲載しています。
-</p>
-</div>
-
-<div class="links-grid">
-<a class="lecture-link" href="news.html">🏫 開校のお知らせ</a>
-<a class="lecture-link" href="news.html">📚 メダル学部開講</a>
-<a class="lecture-link" href="news.html">🎓 裏講義追加</a>
-<a class="lecture-link" href="news.html">📖 用語辞典追加</a>
-</div>
-
-</section>
-    <section class="section">
-
-<div class="section-header">
-<h2 class="section-title">🎰 ガチャ研究室</h2>
-<p class="section-copy">
-学長が最新ガチャを評価します。
-</p>
-</div>
-
-<div class="links-grid">
-<a class="lecture-link" href="gacha.html">
-🎰 今週のガチャ解説
-</a>
-</div>
-
-</section>
     <section id="lectures" class="section">
-      <div class="section-head">
-        <h2 class="section-title">講義一覧</h2>
-        <p class="section-copy">現在存在する講義ページへのリンクをすべて設置しています。</p>
-      </div>
-
-      <div class="links-grid">
-        <a class="lecture-link" href="index.html">トップページ</a>
-        <a class="lecture-link" href="medal.html">メダル講義</a>
-        <a class="lecture-link" href="level100.html">レベル100講義</a>
-        <a class="lecture-link" href="gakucho.html">学長講義</a>
-        <a class="lecture-link" href="nika.html">ニカ講義</a>
-        <a class="lecture-link" href="roger.html">ロジャー講義</a>
-        <a class="lecture-link" href="teach.html">初心者講義</a>
-        <a class="lecture-link" href="siroshan.html">白シャン講義</a>
-        <a class="lecture-link" href="nasu.html">ナス講義</a>
-        <a class="lecture-link" href="sabo.html">サボ講義</a>
-        <a class="lecture-link" href="law.html">ロー講義</a>
-        <a class="lecture-link" href="snake.html">スネーク講義</a>
-        <a class="lecture-link" href="zoro-sanji.html">ゾロサンジ講義</a>
-      </div>
+      <div class="section-head"><h2 class="section-title">講義一覧</h2><p class="section-copy">現在存在する講義ページへのリンクを設置しています。</p></div>
+      <div class="links-grid"><a class="lecture-link" href="medal.html">メダル講義</a><a class="lecture-link" href="level100.html">レベル100講義</a><a class="lecture-link" href="gakucho.html">学長講義</a><a class="lecture-link" href="nika.html">ニカ講義</a><a class="lecture-link" href="roger.html">ロジャー講義</a><a class="lecture-link" href="teach.html">初心者講義</a><a class="lecture-link" href="siroshan.html">白シャン講義</a><a class="lecture-link" href="law.html">ロー講義</a><a class="lecture-link" href="snake.html">スネーク講義</a><a class="lecture-link" href="zoro-sanji.html">ゾロサンジ講義</a></div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p>バウンティ大学【レクサカ】</p>
-      <p class="footer-motto">知らないを、強さに変える。</p>
-    </div>
-  </footer>
+  <footer class="legal-footer"><div class="footer-inner"><div><p>バウンティ大学【レクサカ】</p><p>本サイトは非公式ファンサイトです。</p></div><p class="legal-footer-note">著作権はバンダイナムコエンターテインメント及び各権利者に帰属します。</p></div></footer>
+
   <script>
     (() => {
       const carousel = document.querySelector('[data-notice-carousel]');
       if (!carousel) return;
-
       const track = carousel.querySelector('.notice-carousel-track');
       const slides = carousel.querySelectorAll('.notice-slide');
       const prevButton = carousel.querySelector('.notice-control-prev');
       const nextButton = carousel.querySelector('.notice-control-next');
       let currentIndex = 0;
       let timerId;
-
       const showSlide = (index) => {
         currentIndex = (index + slides.length) % slides.length;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
       };
-
-      const startAutoSlide = () => {
-        timerId = window.setInterval(() => showSlide(currentIndex + 1), 3000);
-      };
-
-      const resetAutoSlide = () => {
-        window.clearInterval(timerId);
-        startAutoSlide();
-      };
-
-      prevButton.addEventListener('click', () => {
-        showSlide(currentIndex - 1);
-        resetAutoSlide();
-      });
-
-      nextButton.addEventListener('click', () => {
-        showSlide(currentIndex + 1);
-        resetAutoSlide();
-      });
-
+      const startAutoSlide = () => { timerId = window.setInterval(() => showSlide(currentIndex + 1), 3000); };
+      const resetAutoSlide = () => { window.clearInterval(timerId); startAutoSlide(); };
+      prevButton.addEventListener('click', () => { showSlide(currentIndex - 1); resetAutoSlide(); });
+      nextButton.addEventListener('click', () => { showSlide(currentIndex + 1); resetAutoSlide(); });
       startAutoSlide();
     })();
   </script>
