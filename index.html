@@ -744,88 +744,139 @@
 .youtube-button:hover {
   transform: translateY(-1px);
 }
-   /* お知らせスライダー */
-.notice-slider {
-  overflow: hidden;
+   /* 画像付きお知らせカルーセル */
+.notice-carousel {
   border-bottom: 1px solid rgba(219, 231, 241, 0.95);
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.84);
   backdrop-filter: blur(10px);
 }
 
-.notice-track {
+.notice-carousel-inner {
   width: min(1120px, calc(100% - 32px));
-  height: 48px;
   margin: 0 auto;
+  padding: 18px 0;
+}
+
+.notice-carousel-window {
   position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(23, 50, 77, 0.08);
 }
 
-.notice-item {
-  position: absolute;
-  inset: 0;
-  margin: 0;
+.notice-carousel-track {
   display: flex;
-  align-items: center;
+  transition: transform 0.55s ease;
+}
+
+.notice-slide {
+  min-width: 100%;
+}
+
+.notice-slide a {
+  display: grid;
+  min-height: 210px;
+  grid-template-columns: minmax(240px, 42%) 1fr;
+  color: inherit;
+}
+
+.notice-slide img {
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  display: block;
+  object-fit: cover;
+}
+
+.notice-slide-body {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  padding: 28px 64px 28px 30px;
+}
+
+.notice-label {
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 5px 10px;
   color: var(--red-dark);
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 900;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: noticeSlide 12s infinite;
+  border: 1px solid rgba(217, 37, 53, 0.22);
+  border-radius: 999px;
+  background: #fff7f8;
 }
 
-.notice-item:nth-child(1) {
-  animation-delay: 0s;
+.notice-slide h2 {
+  margin: 0 0 8px;
+  color: #0d3b66;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  line-height: 1.28;
 }
 
-.notice-item:nth-child(2) {
-  animation-delay: 3s;
+.notice-slide p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 800;
 }
 
-.notice-item:nth-child(3) {
-  animation-delay: 6s;
+.notice-control {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(13, 59, 102, 0.78);
+  cursor: pointer;
 }
 
-.notice-item:nth-child(4) {
-  animation-delay: 9s;
+.notice-control:hover {
+  background: var(--red);
 }
 
-@keyframes noticeSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  8% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  22% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  30% {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
+.notice-control-prev {
+  left: 14px;
 }
 
-@media (max-width: 560px) {
-  .notice-track {
+.notice-control-next {
+  right: 14px;
+}
+
+@media (max-width: 700px) {
+  .notice-carousel-inner {
     width: min(100% - 24px, 1120px);
-    height: 44px;
+    padding: 14px 0;
   }
 
-  .notice-item {
-    justify-content: flex-start;
-    font-size: 0.92rem;
+  .notice-slide a {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .notice-slide img {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .notice-slide-body {
+    min-height: 174px;
+    padding: 18px 58px 20px;
+  }
+
+  .notice-control {
+    width: 38px;
+    height: 38px;
   }
 } 
   </style>
@@ -850,12 +901,44 @@
     </div>
   </header>
 
-<section class="notice-slider" aria-label="お知らせ">
-  <div class="notice-track">
-    <p class="notice-item">📢 最新情報掲載中</p>
-    <p class="notice-item">📺 レクサカチャンネル登録よろしく</p>
-    <p class="notice-item">🎓 裏講義004公開</p>
-    <p class="notice-item">🎰 今週のガチャ更新</p>
+<section class="notice-carousel" aria-label="お知らせ">
+  <div class="notice-carousel-inner">
+    <div class="notice-carousel-window" data-notice-carousel>
+      <div class="notice-carousel-track">
+        <article class="notice-slide">
+          <a href="news.html">
+            <img src="https://img.youtube.com/vi/jP7Z5QWQLSk/hqdefault.jpg" alt="最新動画のお知らせ">
+            <div class="notice-slide-body">
+              <span class="notice-label">最新動画</span>
+              <h2>今週の注目講義を公開しました</h2>
+              <p>初心者にも分かりやすいメダル解説動画を仮データで掲載しています。</p>
+            </div>
+          </a>
+        </article>
+        <article class="notice-slide">
+          <a href="gacha.html">
+            <img src="https://placehold.co/960x540/1d75d8/ffffff?text=Gacha+Lab" alt="ガチャ研究室のお知らせ">
+            <div class="notice-slide-body">
+              <span class="notice-label">ガチャ研究室</span>
+              <h2>新ガチャ評価レポート準備中</h2>
+              <p>学長が最新ガチャの注目キャラと引きどころを研究する仮データです。</p>
+            </div>
+          </a>
+        </article>
+        <article class="notice-slide">
+          <a href="news.html">
+            <img src="https://placehold.co/960x540/d92535/ffffff?text=Secret+Lecture" alt="裏講義紹介のお知らせ">
+            <div class="notice-slide-body">
+              <span class="notice-label">裏講義紹介</span>
+              <h2>裏講義004を紹介します</h2>
+              <p>上級者向けの立ち回りと環境対策を紹介する仮データです。</p>
+            </div>
+          </a>
+        </article>
+      </div>
+      <button class="notice-control notice-control-prev" type="button" aria-label="前のお知らせへ">‹</button>
+      <button class="notice-control notice-control-next" type="button" aria-label="次のお知らせへ">›</button>
+    </div>
   </div>
 </section>
   <section class="hero">
@@ -1088,5 +1171,44 @@ target="_blank">
       <p class="footer-motto">知らないを、強さに変える。</p>
     </div>
   </footer>
+  <script>
+    (() => {
+      const carousel = document.querySelector('[data-notice-carousel]');
+      if (!carousel) return;
+
+      const track = carousel.querySelector('.notice-carousel-track');
+      const slides = carousel.querySelectorAll('.notice-slide');
+      const prevButton = carousel.querySelector('.notice-control-prev');
+      const nextButton = carousel.querySelector('.notice-control-next');
+      let currentIndex = 0;
+      let timerId;
+
+      const showSlide = (index) => {
+        currentIndex = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      };
+
+      const startAutoSlide = () => {
+        timerId = window.setInterval(() => showSlide(currentIndex + 1), 3000);
+      };
+
+      const resetAutoSlide = () => {
+        window.clearInterval(timerId);
+        startAutoSlide();
+      };
+
+      prevButton.addEventListener('click', () => {
+        showSlide(currentIndex - 1);
+        resetAutoSlide();
+      });
+
+      nextButton.addEventListener('click', () => {
+        showSlide(currentIndex + 1);
+        resetAutoSlide();
+      });
+
+      startAutoSlide();
+    })();
+  </script>
 </body>
 </html>
