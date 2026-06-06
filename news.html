@@ -3,70 +3,379 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>学内掲示板</title>
+<title>学内掲示板 | バウンティ大学</title>
 
 <style>
-body{
-font-family:sans-serif;
-background:#f5f8ff;
-max-width:1000px;
-margin:auto;
-padding:20px;
+:root {
+  --blue: #1d75d8;
+  --sky: #dff3ff;
+  --red: #d92535;
+  --red-dark: #a91624;
+  --ink: #17324d;
+  --muted: #62748a;
+  --line: #dbe7f1;
+  --gold: #ffb923;
+  --soft: #f7fbff;
+  --shadow: 0 16px 34px rgba(23, 50, 77, 0.12);
 }
 
-.card{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-margin-bottom:20px;
+* {
+  box-sizing: border-box;
 }
 
-h1{
-color:#d62828;
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, Arial, sans-serif;
+  line-height: 1.7;
+  background:
+    linear-gradient(180deg, var(--sky) 0, #f7fbff 340px, #ffffff 100%);
 }
 
-.date{
-font-weight:bold;
-color:#d62828;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(219, 231, 241, 0.95);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner,
+.page-hero,
+.news-section,
+.footer-inner {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.header-inner {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+}
+
+.brand-mark {
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 10px 22px rgba(29, 117, 216, 0.2);
+}
+
+.brand-sub {
+  display: block;
+  color: var(--red);
+  font-size: 0.78rem;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.nav a {
+  padding: 9px 12px;
+  border-radius: 6px;
+}
+
+.nav a:hover {
+  color: var(--blue);
+  background: #eef7ff;
+}
+
+.page-hero {
+  padding: 44px 0 32px;
+}
+
+.eyebrow {
+  width: fit-content;
+  margin: 0 0 14px;
+  padding: 6px 12px;
+  color: var(--red-dark);
+  font-size: 0.86rem;
+  font-weight: 900;
+  border: 1px solid rgba(217, 37, 53, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+h1 {
+  margin: 0;
+  color: #0d3b66;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.lead {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.news-section {
+  padding: 18px 0 64px;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.news-card {
+  min-width: 0;
+  display: flex;
+  overflow: hidden;
+  min-height: 100%;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.news-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px rgba(23, 50, 77, 0.16);
+}
+
+.news-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+  background: #eef7ff;
+}
+
+.news-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px;
+}
+
+.news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.news-date {
+  color: var(--red-dark);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.news-category {
+  padding: 3px 9px;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  border: 1px solid #c7e4f8;
+  border-radius: 999px;
+  background: #eef7ff;
+}
+
+.news-title {
+  margin: 0 0 10px;
+  color: #0d3b66;
+  font-size: 1.14rem;
+  line-height: 1.38;
+}
+
+.news-text {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.news-more {
+  margin-top: auto;
+  color: var(--red);
+  font-weight: 900;
+}
+
+.empty-message {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.back-link {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 26px;
+  padding: 11px 18px;
+  color: #fff;
+  font-weight: 900;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--red), #ff5a68);
+  box-shadow: 0 12px 26px rgba(217, 37, 53, 0.22);
+}
+
+.site-footer {
+  padding: 30px 0;
+  color: #fff;
+  background: #0d3b66;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-weight: 900;
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.footer-motto {
+  color: #b8dcf8;
+}
+
+@media (max-width: 860px) {
+  .header-inner {
+    padding: 12px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nav {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 3px;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .header-inner,
+  .page-hero,
+  .news-section,
+  .footer-inner {
+    width: min(100% - 24px, 1120px);
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .page-hero {
+    padding: 32px 0 22px;
+  }
+
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .news-body {
+    padding: 16px;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 </style>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="バウンティ大学トップ">
+        <img src="logo.png" class="brand-mark" alt="バウンティ大学校章">
+        <span>
+          バウンティ大学【レクサカ】
+          <span class="brand-sub">Bounty University</span>
+        </span>
+      </a>
 
-<div class="card">
-<h1>📢 学内掲示板</h1>
-<p>バウンティ大学の更新情報をお知らせします。</p>
-</div>
+      <nav class="nav" aria-label="主要メニュー">
+        <a href="index.html">トップ</a>
+        <a href="index.html#freshman">新入生</a>
+        <a href="index.html#faculties">学部</a>
+        <a href="index.html#lectures">講義一覧</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="card">
-<p class="date">2026/06/06</p>
-<h2>🏫 バウンティ大学 開校</h2>
-<p>バウンティ大学【レクサカ】を開校しました。</p>
-</div>
+  <section class="page-hero">
+    <p class="eyebrow">Campus News</p>
+    <h1>学内掲示板</h1>
+    <p class="lead">バウンティ大学の更新情報、動画、研究室レポート、裏講義のお知らせをまとめています。</p>
+  </section>
 
-<div class="card">
-<p class="date">2026/06/06</p>
-<h2>📚 メダル学部 10講義を公開</h2>
-<p>ニカ、黒ロジャー、黒ひげ、白シャンクスなどの最強メダル講義を公開しました。</p>
-</div>
+  <main class="news-section">
+    <div id="news-grid" class="news-grid" aria-live="polite"></div>
+    <a class="back-link" href="index.html">トップページへ戻る</a>
+  </main>
 
-<div class="card">
-<p class="date">2026/06/06</p>
-<h2>🎓 裏講義を追加</h2>
-<p>回避後静止、防御力無視とダメージ減少無視、裏スキルなどの講義を追加しました。</p>
-</div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>バウンティ大学【レクサカ】</p>
+      <p class="footer-motto">知らないを、強さに変える。</p>
+    </div>
+  </footer>
 
-<div class="card">
-<p class="date">2026/06/06</p>
-<h2>📖 用語辞典を追加</h2>
-<p>ジャスト回避、ダメージ減少無視、防御力無視、裏スキルの用語解説を追加しました。</p>
-</div>
+  <script src="news-data.js"></script>
+  <script>
+    (() => {
+      const grid = document.getElementById('news-grid');
+      const newsItems = window.BOUNTY_NEWS || [];
 
-<div class="card">
-<a href="index.html">🏠 トップページへ戻る</a>
-</div>
+      if (!newsItems.length) {
+        grid.innerHTML = '<p class="empty-message">現在掲載中のお知らせはありません。</p>';
+        return;
+      }
 
+      grid.innerHTML = newsItems.map((item) => `
+        <article class="news-card">
+          <a href="${item.link}">
+            <img class="news-image" src="${item.image}" alt="${item.title}">
+          </a>
+          <div class="news-body">
+            <div class="news-meta">
+              <span class="news-date">${item.date}</span>
+              <span class="news-category">${item.category}</span>
+            </div>
+            <h2 class="news-title">
+              <a href="${item.link}">${item.title}</a>
+            </h2>
+            <p class="news-text">${item.body}</p>
+            <a class="news-more" href="${item.link}">詳しく見る</a>
+          </div>
+        </article>
+      `).join('');
+    })();
+  </script>
 </body>
 </html>
